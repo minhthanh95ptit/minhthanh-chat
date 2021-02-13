@@ -1,0 +1,22 @@
+{
+  "name": "minhthanh-chat",
+  "version": "1.0.0",
+  "description": "minhthanh95ptit",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minhthanh95ptit/minhthanh-chat.git"
+  },
+  "author": "minhthanh95ptit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minhthanh95ptit/minhthanh-chat/issues"
+  },
+  "homepage": "https://github.com/minhthanh95ptit/minhthanh-chat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
