@@ -2,7 +2,7 @@
 import express from "express"
 import connectDB from "./config/connectDB"
 import configViewEngine from "./config/viewEngine"
-
+import initRoutes from "./routes/web"
 // Init app
 let app = express()
 
@@ -12,13 +12,8 @@ connectDB()
 // Config view engine
 configViewEngine(app)
 
-app.get("/", (req, res) =>{
-    return res.render("main/master")
-})
-
-app.get("/login-register", (req, res) =>{
-    return res.render("auth/loginRegister")
-})
+//Init all route
+initRoutes(app);
 
 let hostname = "localhost"
 let port = 8017
