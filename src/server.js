@@ -1,11 +1,24 @@
 // var express = require("express")
 import express from "express"
 import connectDB from "./config/connectDB"
+import configViewEngine from "./config/viewEngine"
 
+// Init app
 let app = express()
 
 //CONNECT TO MONGODB
 connectDB()
+
+// Config view engine
+configViewEngine(app)
+
+app.get("/", (req, res) =>{
+    return res.render("main/master")
+})
+
+app.get("/login-register", (req, res) =>{
+    return res.render("auth/loginRegister")
+})
 
 let hostname = "localhost"
 let port = 8017
