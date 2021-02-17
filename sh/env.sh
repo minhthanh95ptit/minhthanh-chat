@@ -10,3 +10,10 @@ export DB_PASSWORD=""
 
 export APP_HOST=localhost
 export APP_PORT=8017  
+
+#config admin email account
+
+export MAIL_USER=minhthanh95ptit@gmail.com
+export MAIL_PASSWORD=Thanhkid1412ubqn1
+export MAIL_HOST=smtp.gmail.com
+export MAIL_PORT=587
