@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import bcrypt from "bcrypt"
 
 let Schema = mongoose.Schema;
 
@@ -48,6 +49,19 @@ UserSchema.statics = {
       {"local.verifyToken": token},
       {"local.isActive": true, "local.verifyToken": null}
     ).exec()
+  },
+
+  findUserById(id){
+    return this.findById(id).exec()
+  }
+}
+
+//static chi trong pham vi schema ban ghi
+//method tim duoc ban ghi => su dung mat khau de so sanh 
+UserSchema.methods = {
+  comparePassword(password){
+    //return promise
+    return bcrypt.compare(password, this.local.password) 
   }
 }
 // user de so it thoi
