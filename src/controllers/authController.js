@@ -61,7 +61,8 @@ let getLogout = (req, res) =>{
 
 let checkLoggedIn = (req, res, next) =>{
   if(!req.isAuthenticated()){
-    return res.redirect("/")
+    console.log("Hahah")
+    return res.redirect("/login-register")
   }
   next()
 }
