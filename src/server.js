@@ -28,6 +28,7 @@ app.use(connectFlash())
 
 //config passport js
 app.use(passport.initialize())
+app.use(passport.session()) // quan trong
 //Init all route
 initRoutes(app);
 

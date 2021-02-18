@@ -16,8 +16,6 @@ let router = express.Router()
 
 let initRoutes = (app) => {
 
-  router.get("/", auth.checkLoggedIn, home.getHome)
-
   router.get("/login-register", auth.checkLoggedOut, auth.getLoginRegister)
 
   router.post("/register", auth.checkLoggedOut, authValid.register,auth.postRegister)
@@ -30,6 +28,8 @@ let initRoutes = (app) => {
     successFlash: true,
     failureFlash: true
   }))
+
+  router.get("/", auth.checkLoggedIn, home.getHome)
 
   router.get("/logout", auth.checkLoggedIn, auth.getLogout)
 
