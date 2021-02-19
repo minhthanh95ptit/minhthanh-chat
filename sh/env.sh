@@ -17,3 +17,8 @@ export MAIL_USER=minhthanh95ptit@gmail.com
 export MAIL_PASSWORD=Thanhkid1412ubqn1
 export MAIL_HOST=smtp.gmail.com
 export MAIL_PORT=587
+
+#config facebook login app
+export FB_APP_ID=2406614096148658
+export FB_APP_SECRET=df665bf8a98625ea4fa65e54cb40e7b0
+export FB_CALLBACK_URL=https://localhost:8017/auth/facebook/callback
