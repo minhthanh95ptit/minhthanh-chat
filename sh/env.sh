@@ -22,3 +22,9 @@ export MAIL_PORT=587
 export FB_APP_ID=2406614096148658
 export FB_APP_SECRET=df665bf8a98625ea4fa65e54cb40e7b0
 export FB_CALLBACK_URL=https://localhost:8017/auth/facebook/callback
+
+#config google login app
+export GG_APP_ID=41462470744-5vqubsgv5ua8gbs0abofnefkgnc06vo8.apps.googleusercontent.com
+export GG_APP_SECRET=asotlg3dSWnrhMMeuuOtFHRV
+export GG_CALLBACK_URL=https://localhost:8017/auth/google/callback
+
