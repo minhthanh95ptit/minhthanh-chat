@@ -11,7 +11,9 @@ export const transErrors = {
   account_not_active: "Tài khoản đã được đăng ký nhưng chưa active. Vui lòng kiểm tra email hoặc liên hệ lại với CSKH.",
   token_undefined: "Token không tồn tại !",
   login_failed: "Sai tài khoản hoặc mật khẩu !",
-  server_error: "Có lôi ở phía server. Vui lòng liên hệ CSKH."
+  server_error: "Có lôi ở phía server. Vui lòng liên hệ CSKH.",
+  avatar_type_error: "Kiểu file không hợp lệ, chỉ chấp nhận jpg, png, jpeg",
+  avatar_size_error: "Ảnh updload có dung lượng vượt tối đa cho phép"
 }
 
 export const transSuccess = {
@@ -22,7 +24,8 @@ export const transSuccess = {
   loginSuccess: (username) =>{
     return `Xin chào ${username}`
   },
-  logout_success: "Đăng xuất tài khoản thành công. Hẹn gặp lại bạn"
+  logout_success: "Đăng xuất tài khoản thành công. Hẹn gặp lại bạn",
+  avatar_updated: "Cập nhật ảnh đại diện thành công."
 }
 
 export const transMail = {
