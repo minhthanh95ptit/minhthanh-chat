@@ -39,6 +39,8 @@ let initRoutes = (app) => {
 
   router.put("/user/update-avatar", auth.checkLoggedIn, user.updateAvatar )
 
+  router.put("/user/update-info", auth.checkLoggedIn,user.updateInfo )
+
   router.get("/auth/facebook", auth.checkLoggedOut, passport.authenticate("facebook", {scope: ["email"]}))
 
   router.get("/auth/facebook/callback", auth.checkLoggedOut, passport.authenticate("facebook", {
