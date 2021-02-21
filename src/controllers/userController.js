@@ -63,6 +63,26 @@ let updateAvatar = (req, res) =>{
   })
 }
 
+let updateInfo = async (req, res) =>{
+  try {
+    let updateUserItem = req.body
+
+     //update User
+    await user.updateUser(req.user._id, updateUserItem)
+
+    let result = {
+      message: transSuccess.user_info_updated,
+    }
+    // console.log(result)
+    return res.status(200).send(result)
+
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send(error)
+  }
+}
+
 module.exports = {
-  updateAvatar:updateAvatar
+  updateAvatar:updateAvatar,
+  updateInfo: updateInfo
 }
