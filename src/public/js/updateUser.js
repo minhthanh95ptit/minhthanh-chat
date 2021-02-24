@@ -1,7 +1,7 @@
 let userAvatar = null
 let userInfo = {} 
 let originAvatarSrc = null
-let originInfo = { }
+let originUserInfo = {}
 
 function updateUserInfo(){
   $("#input-change-avatar").bind("change", function(){
@@ -11,7 +11,7 @@ function updateUserInfo(){
     //byte = 1mb
     let limit = 1048576
 
-    console.log(fileData)
+    // console.log(fileData)
 
     if($.inArray(fileData.type, match) === -1){
       alertify.notify("Kiểu file không hợp lệ, chỉ chấp nhận jpg, png, jpeg", "error", 7)
@@ -55,33 +55,75 @@ function updateUserInfo(){
   })
 
   $("#input-change-username").bind("change", function(){
-    userInfo.username = $(this).val() //$(this).val() -> Nhap vao form
+    let username = $(this).val() //$(this).val() -> Nhap vao form
+    let regexUsername = new RegExp("^[\s0-9a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$")
+
+    if (!regexUsername.test(username) || username.length < 3 || username.length > 17){
+      alertify.notify("Giới hạn 3- 17 kí tự và không được chứa kí tự đặc biệt", "error", 6)
+      $(this).val(originUserInfo.username)
+      delete userInfo.username
+      return false 
+    }
+    userInfo.username = username
   })
 
   $("#input-change-gender-male").bind("click", function(){
-    userInfo.gender = $(this).val() //$(this).val() -> Nhap vao form
+    let gender = $(this).val() //$(this).val() -> Nhap vao form
+
+    if(gender !== "male"){
+      alertify.notify("Giới tính bị sai", "error", 6)
+      $(this).val(originUserInfo.gender)
+      delete userInfo.gender
+      return false 
+    }
+    userInfo.gender = gender
   })
 
   $("#input-change-gender-female").bind("click", function(){
-    userInfo.gender = $(this).val() //$(this).val() -> Nhap vao form
+    let gender = $(this).val() //$(this).val() -> Nhap vao form
+
+    if(gender !== "female"){
+      alertify.notify("Giới tính bị sai", "error", 6)
+      $(this).val(originUserInfo.gender)
+      delete userInfo.gender
+      return false 
+    }
+    userInfo.gender = gender
   })
 
   $("#input-change-address").bind("change", function(){
-    userInfo.address = $(this).val() //$(this).val() -> Nhap vao form
+    let address = $(this).val() //$(this).val() -> Nhap vao form
+    if(address.length < 3 || address > 30){
+      alertify.notify("Địa chỉ giới hạn trong 3-30 kí tự", "error", 6)
+      $(this).val(originUserInfo.address)
+      delete userInfo.address
+      return false 
+    }
+    userInfo.address = address
   })
 
   $("#input-change-phone").bind("change", function(){
-    userInfo.phone = $(this).val() //$(this).val() -> Nhap vao form
+    let phone = $(this).val() //$(this).val() -> Nhap vao form
+    let regexPhone = new RegExp("^(0)[0-9]{9,10}$")
+
+    if (!regexPhone.test(phone)){
+      alertify.notify("Số điện thoại Việt Nam bắt đâu bằng số 0, giới hạn 10-11 kí tự", "error", 6)
+      $(this).val(originUserInfo.phone)
+      delete userInfo.phone
+      return false 
+    }
+    userInfo.phone = phone
   })
+  
 } 
 
 function callUpdateUserAvatar(){
   $.ajax({
-    url: "/user/update-info",
+    url: "/user/update-avatar",
     type: "put", //update truong du lieu
-    cache: false,
-    contentType: false,
-    processData: false,
+    cache: false, // just use for upload file
+    contentType: false,// just use for upload file
+    processData: false,// just use for upload file
     data: userAvatar,
     success: function(result){
       console.log(result)
@@ -91,9 +133,12 @@ function callUpdateUserAvatar(){
 
       // Update avatar
       $("#navbar-avatar").attr("src", result.imageSrc)
-      
+      updateInfo
       //update origin avatar src
       originAvatarSrc = result.imageSrc
+
+      //reset all
+      $("#input-btn-cancel-update-user").click()
     },
     error: function(error){
       // Dislay errors
@@ -113,7 +158,6 @@ function callUpdateUserInfo(){
     type: "put", //update truong du lieu
     data: userInfo,
     success: function(result){
-      console.log(result)
 
       $(".user-modal-alert-success").find("span").text(result.message)
       $(".user-modal-alert-success").css("display", "block")
@@ -141,17 +185,16 @@ function callUpdateUserInfo(){
 
 
 $(document).ready(function(){
-  updateUserInfo()
 
   originAvatarSrc = $("#user-modal-avatar").attr("src")
 
   originUserInfo = {
     username: $("input-change-username").val(),
-    gender: ($("#input-change-gender-male").is(":checked") ? $("#input-change-gender-male").val() : $("#input-change-gender-female")),
+    gender: ($("#input-change-gender-male").is(":checked") ? $("#input-change-gender-male").val() : $("#input-change-gender-female").val()),
     address: $("input-change-address").val(),
     phone: $("input-change-phone").val()
   }
-  //update userinfo after change value to update
+  //update user info after change value to update
   updateUserInfo()
 
   $("#input-btn-update-user").bind("click", function(){
@@ -171,19 +214,18 @@ $(document).ready(function(){
    
   })
 
-
- 
-
   $("#input-btn-cancel-update-user").bind("click", function(){
     userAvatar = null
     userInfo = {}
 
-    $("#input-change-avatar").val(null)
     $("#user-modal-avatar").attr("src", originAvatarSrc)
-
-    $("#input-change-username").val(originUserInfo.username)
-    (originUserInfo.gender === "male") ? $("#input-change-gender-male").click() : $("#input-change-gender-female").click()
-    $("#input-change-address").val(originUserInfo.address)
-    $("#input-change-phone").val(originUserInfo.phone)
+    $("#input-change-avatar").val(null)
+  
+    //return old data 
+    $("#input-change-username").val(originUserInfo.username);
+    (originUserInfo.gender === "male") ? $("#input-change-gender-male").click() : $("#input-change-gender-female").click();
+    $("#input-change-address").val(originUserInfo.address);
+    $("#input-change-phone").val(originUserInfo.phone);
   })
 })
+
