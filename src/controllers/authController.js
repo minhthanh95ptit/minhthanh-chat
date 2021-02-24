@@ -11,7 +11,7 @@ let getLoginRegister = (req, res) =>{
 
 let postRegister = async (req, res) =>{
   let errorArr = []
-  let successArr = []
+
   let validationErrors = validationResult(req)
   if (!validationErrors.isEmpty()){
     let errors = Object.values(validationErrors.mapped())
