@@ -11,4 +11,19 @@ let ContactSchema = new Schema({
   deletedAt: {type: Number, default: null}
 })
 // user de so it thoi
+
+ContactSchema.statics = {
+  createNew(item){
+    return this.createNew(item)
+  },
+
+  findAllByUser(userId){
+    return this.find({
+      $or:[
+        {"userId": userId},
+        {"contactId": userId}
+      ]
+    })
+  }
+}
 module.exports = mongoose.model("contact", ContactSchema);
