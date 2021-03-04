@@ -11,6 +11,10 @@ export DB_PASSWORD=""
 export APP_HOST=localhost
 export APP_PORT=8017  
 
+#confid session
+export SESSION_KEY="minhthanh.sid"
+export SESSION_SECRET="mySecret"
+
 #config admin email account
 
 export MAIL_USER=minhthanh95ptit@gmail.com
