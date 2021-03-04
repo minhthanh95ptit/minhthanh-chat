@@ -14,7 +14,7 @@ let ContactSchema = new Schema({
 
 ContactSchema.statics = {
   createNew(item){
-    return this.createNew(item)
+    return this.create(item) // return Promise so onece will use async/await
   },
 
   findAllByUser(userId){
@@ -23,7 +23,30 @@ ContactSchema.statics = {
         {"userId": userId},
         {"contactId": userId}
       ]
-    })
+    }).exec()
+  },
+  //Kiem tra ton tai 2 user
+  checkExists(userId, contactId){
+    return this.findOne({
+      $or:[
+        {$and: [
+          {"userId": userId},
+          {"contactId": contactId}
+        ]},
+        {$and: [
+          {"userId": contactId},
+          {"contactId": userId}
+        ]}
+      ]
+    }).exec();
+  },
+  removeRequestContact(userId,contactId){
+    return this.remove({
+      $and:[
+        {"userId": userId},
+        {"contactId": contactId},
+      ]
+    }).exec()
   }
 }
 module.exports = mongoose.model("contact", ContactSchema);
