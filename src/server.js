@@ -5,11 +5,19 @@ import configViewEngine from "./config/viewEngine"
 import initRoutes from "./routes/web"
 import bodyParser from "body-parser"
 import connectFlash from "connect-flash"
-import configSession from "./config/session"
+import session from "./config/session"
 import passport from "passport"
+import http from "http"
+import socketio from "socket.io"
+import initSockets from "./sockets/index"
+import configSocketIo from "./config/socketio"
+import passportSocketIo from "passport.socketio"
+import cookieParser from "cookie-parser"
 
 import pem from "pem"
 import https from "https"
+
+
 
 // pem.createCertificate({days: 1, selfSigned: true}, function (err, keys){
 
@@ -48,11 +56,16 @@ import https from "https"
 //  Init app
 let app = express()
 
+// Init server with socket.io & express app
+
+let server = http.createServer(app)
+let io = socketio(server);
+
 //CONNECT TO MONGODB
 connectDB()
 
 // Config session
-configSession(app)
+session.config(app)
 
 // Config view engine
 configViewEngine(app)
@@ -63,11 +76,21 @@ app.use(bodyParser.urlencoded({extended:true}))
 //Enable flash messages
 app.use(connectFlash())
 
+// User Cookie Parser
+app.use(cookieParser())
+
 //config passport js
 app.use(passport.initialize())
 app.use(passport.session()) // quan trong
 //Init all route
 initRoutes(app);
+
+// Config for socketIO
+configSocketIo(io, cookieParser, session.sessionStore)
+
+//Init all sockets
+initSockets(io);
+
 let hostname = "localhost"
 let port = 8017
 
@@ -75,6 +98,6 @@ app.get("/",(req,res) => {
     res.send("<h1>Hello Pham Minh Thanh</h1>")
 });
 
-app.listen(process.env.APP_PORT, process.env.APP_HOST,() => {
+server.listen(process.env.APP_PORT, process.env.APP_HOST,() => {
     console.log(`Running at ${process.env.APP_HOST}:${process.env.APP_PORT}`)
 })
