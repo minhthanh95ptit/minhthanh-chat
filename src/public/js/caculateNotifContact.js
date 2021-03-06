@@ -8,8 +8,9 @@ function increaseNumberNotisContact(className){
   else{
     $(`.${className}`).html(`(<em>${currentValue}</em>)`)
   }
-  console.log(currentValue)
-  console.log(typeof currentValue)
+  // console.log("Tang")
+  // console.log(currentValue)
+  // console.log(typeof currentValue)
 }
 
 function decreaseNumberNotisContact(className){
@@ -22,6 +23,7 @@ function decreaseNumberNotisContact(className){
   else{
     $(`.${className}`).html(`(<em>${currentValue}</em>)`)
   }
-  console.log(currentValue)
-  console.log(typeof currentValue)
+  // console.log("Giam")
+  // console.log(currentValue)
+  // console.log(typeof currentValue)
 }
