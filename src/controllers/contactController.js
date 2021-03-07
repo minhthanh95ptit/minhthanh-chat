@@ -38,8 +38,8 @@ let addNew = async (req, res) =>{
     let contactId = req.body.uid 
 
     let newContact = await contact.addNew(currentUserId, contactId)
-    console.log(newContact)
-    console.log(!!newContact)
+    // console.log(newContact)
+    // console.log(!!newContact)
     return res.status(200).send({success: !!newContact});
   } catch (error) {
     return res.status(500).send(error)
@@ -52,8 +52,8 @@ let removeRequestContact = async (req, res) =>{
     let contactId = req.body.uid 
 
     let removeReq = await contact.removeRequestContact(currentUserId, contactId)
-    console.log(removeReq)
-    console.log(!!removeReq)
+    // console.log(removeReq)
+    // console.log(!!removeReq)
     return res.status(200).send({success: !!removeReq});
   } catch (error) {
     return res.status(500).send(error)
