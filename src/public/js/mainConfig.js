@@ -72,7 +72,7 @@ function showModalContacts() {
     $(this).find('.noti_contact_counter').fadeOut('slow');
   });
 }
-
+ 
 function configNotification() {
   $('#noti_Button').click(function() {
     $('#notifications').fadeToggle('fast', 'linear');
