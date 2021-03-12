@@ -24,6 +24,7 @@ let findUsersContact = async (req, res) =>{
 
     let users = await contact.findUsersContact(currentUserId, keyword)
 
+    console.log(users)
     return res.render("main/contact/sections/_findUsersContact",{users})
     // console.log(users)
 

@@ -47,6 +47,33 @@ ContactSchema.statics = {
         {"contactId": contactId},
       ]
     }).exec()
-  }
+  },
+  getContacts(userId, limit){
+    return this.find({
+      $and:[
+        {"userId": userId},
+        {"status": true}
+      ]
+    }).sort({"createdAd": -1}).limit(limit).exec()
+  },
+  // status = true -> da la ban be
+  // status = false -> chua la ban be, tuc ma gui nhung chua dong y
+  getContactsSent(userId, limit){
+    return this.find({
+      $and:[
+        {"userId": userId},
+        {"status": false}
+      ]
+    }).sort({"createdAd": -1}).limit(limit).exec()
+  },
+  // Minh nhan duoc tuc la minh la contactID cua nguoi khac
+  getContactsReceived(userId, limit){
+    return this.find({
+      $and:[
+        {"contactId ": userId},
+        {"status": false}
+      ]
+    }).sort({"createdAd": -1}).limit(limit).exec()
+  } 
 }
 module.exports = mongoose.model("contact", ContactSchema);
