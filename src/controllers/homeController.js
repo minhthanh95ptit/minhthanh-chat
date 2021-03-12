@@ -15,6 +15,16 @@ let getHome = async (req, res) =>{
   //get contacts receiverd
   let contactsReceived = await contact.getContactsReceived(req.user._id);
 
+  // // console.log(req.user);
+  // console.log(contacts)
+  // console.log(contactsSent)
+  // console.log(contactsReceived)
+
+  //count contacts 
+  let countAllContacts = await contact.countAllContacts(req.user._id);
+  let countAllContactsSent = await contact.countAllContactsSent(req.user._id);
+  let countAllContactReceived = await contact.countAllContactReceived(req.user._id);
+
   return res.render("main/home/home",{
     errors: req.flash("errors"),
     success: req.flash("success"),
@@ -23,7 +33,10 @@ let getHome = async (req, res) =>{
     countNotifUnread: countNotifUnread,
     contacts: contacts,
     contactsSent: contactsSent,
-    contactsReceived: contactsReceived 
+    contactsReceived: contactsReceived ,
+    countAllContacts: countAllContacts,
+    countAllContactsSent: countAllContactsSent,
+    countAllContactReceived: countAllContactReceived
   })
 }
 

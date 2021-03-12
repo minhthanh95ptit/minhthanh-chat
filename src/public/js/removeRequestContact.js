@@ -12,6 +12,10 @@ function removeRequestContact(){
 
         decreaseNumberNotisContact("count-request-contact-sent")
 
+        //Xoa o modal dang cho xac nhan
+        $("#request-contact-send").find(`li[data-uid = ${targetId}]`).remove();
+
+
         socket.emit("remove-request-contact",{contactId: targetId});
       }
     })
@@ -22,6 +26,9 @@ socket.on("response-remove-request-contact", function(user){
   $(".noti_content").find(`div[data-uid= ${user.id}]`).remove();
   $("ul.list-nofifications").find(`li>div[data-uid = ${user.id}]`).parent().remove()
   //Xoa o modal tab yeu cau ket ban
+
+  $("#request-contact-received").find(`li[data-uid = ${user.id}]`).remove();
+
   decreaseNumberNotisContact("count-request-contact-received")
   
   decreaseNumberNotification("noti_contact_counter", 1)

@@ -10,13 +10,38 @@
                   <ul class="nav nav-tabs">
                       <li class="active"><a data-toggle="tab" href="#find-user">Tìm người dùng</a></li>
                       <li><a data-toggle="tab" id="link-contacts" href="#contacts">
-                          Danh bạ <span class="show-number-contacts count-contacts"></span>
+                          Danh bạ 
+                          <% if(countAllContacts > 0) {%>
+                            <span class="show-number-contacts count-contacts">
+                                (<em><%= countAllContacts %></em>)
+                            </span>
+                          <% } else {%>
+                            <span class="show-number-contacts count-contacts">
+                            </span>
+                          <% } %>
                       </a></li>
                       <li><a data-toggle="tab" id="link-request-contact-sent" href="#request-contact-sent">
-                          Đang chờ xác nhận <span class="show-number-contacts count-request-contact-sent"></span>
+                          Đang chờ xác nhận 
+                            <% if(countAllContactsSent > 0) {%>
+                                <span class="show-number-contacts count-request-contact-sent">
+                                    (<em><%= countAllContactsSent %></em>)
+                                </span>
+                            <% } else {%>
+                                <span class="show-number-contacts count-request-contact-sent">
+                                </span>
+                            <% } %>
+                       
                       </a></li>
                       <li><a data-toggle="tab" id="link-request-contact-received" href="#request-contact-received">
-                          Yêu cầu kết bạn <span class="show-number-contacts count-request-contact-received"></span>
+                          Yêu cầu kết bạn 
+                            <% if(countAllContactReceived > 0) {%>
+                                <span class="show-number-contacts count-request-contact-received">
+                                    (<em><%= countAllContactReceived %></em>)
+                                </span>
+                            <% } else {%>
+                                <span class="show-number-contacts count-request-contact-received">
+                            <% } %>
+
                       </a></li>
                   </ul>
                   <div class="tab-content">
@@ -66,6 +91,12 @@
                                 </ul>
                             <% });%>
                           </div>
+                          <hr>
+                            <div class="read-more-contacts">
+                                <a href="javascript:void(0)" id="link-read-more-contact">
+                                    <strong>Xem Thêm</strong>
+                                </a>
+                            </div>
                       </div>
                       <div id="request-contact-sent" class="tab-pane fade">
                           <div class="find-user-bottom">
@@ -93,6 +124,12 @@
                               </ul>
                             <% });%>
                           </div>
+                          <hr>
+                            <div class="read-more-contacts-sent">
+                                <a href="javascript:void(0)" id="link-read-more-contact-sent">
+                                    <strong>Xem Thêm</strong>
+                                </a>
+                            </div>
                       </div>
                       <div id="request-contact-received" class="tab-pane fade">
                           <div class="find-user-bottom">
@@ -123,6 +160,12 @@
                                 <% });%>
                               </ul>
                           </div>
+                          <hr>
+                            <div class="read-more-contacts-received">
+                                <a href="javascript:void(0)" id="link-read-more-contact-received">
+                                    <strong>Xem Thêm</strong>
+                                </a>
+                            </div>
                       </div>
                   </div>
               </div>
