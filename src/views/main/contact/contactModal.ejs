@@ -10,13 +10,38 @@
                   <ul class="nav nav-tabs">
                       <li class="active"><a data-toggle="tab" href="#find-user">Tìm người dùng</a></li>
                       <li><a data-toggle="tab" id="link-contacts" href="#contacts">
-                          Danh bạ <span class="show-number-contacts count-contacts"></span>
+                          Danh bạ 
+                          <% if(countAllContacts > 0) {%>
+                            <span class="show-number-contacts count-contacts">
+                                (<em><%= countAllContacts %></em>)
+                            </span>
+                          <% } else {%>
+                            <span class="show-number-contacts count-contacts">
+                            </span>
+                          <% } %>
                       </a></li>
                       <li><a data-toggle="tab" id="link-request-contact-sent" href="#request-contact-sent">
-                          Đang chờ xác nhận <span class="show-number-contacts count-request-contact-sent"></span>
+                          Đang chờ xác nhận 
+                            <% if(countAllContactsSent > 0) {%>
+                                <span class="show-number-contacts count-request-contact-sent">
+                                    (<em><%= countAllContactsSent %></em>)
+                                </span>
+                            <% } else {%>
+                                <span class="show-number-contacts count-request-contact-sent">
+                                </span>
+                            <% } %>
+                       
                       </a></li>
                       <li><a data-toggle="tab" id="link-request-contact-received" href="#request-contact-received">
-                          Yêu cầu kết bạn <span class="show-number-contacts count-request-contact-received"></span>
+                          Yêu cầu kết bạn 
+                            <% if(countAllContactReceived > 0) {%>
+                                <span class="show-number-contacts count-request-contact-received">
+                                    (<em><%= countAllContactReceived %></em>)
+                                </span>
+                            <% } else {%>
+                                <span class="show-number-contacts count-request-contact-received">
+                            <% } %>
+
                       </a></li>
                   </ul>
                   <div class="tab-content">
@@ -39,22 +64,23 @@
                       </div>
                       <div id="contacts" class="tab-pane fade">
                           <div class="find-user-bottom">
-                              <ul class="contactList">
-                                  <li class="_contactList" data-uid="user._id">
+                            <% contacts.forEach(function(user){ %>
+                                 <ul class="contactList">
+                                  <li class="_contactList" data-uid="<%= user._id %>">
                                       <div class="contactPanel">
                                           <div class="user-avatar">
-                                              <img src="images/users/default-avatar-trungquandev-01.jpg" alt="">
+                                              <img src="images/users/<%= user.avatar %>" alt="">
                                           </div>
                                           <div class="user-name">
                                               <p>
-                                                  Trung Quân
+                                                 <%= user.username %>
                                               </p>
                                           </div>
                                           <br>
                                           <div class="user-address">
-                                              <span>&nbsp Hà Nội, Việt Nam.</span>
+                                              <span>&nbsp <%= user.address %></span>
                                           </div>
-                                          <div class="user-talk" data-uid="user._id">
+                                          <div class="user-talk" data-uid="<%= user._id %>">
                                               Trò chuyện
                                           </div>
                                           <div class="user-remove-contact action-danger" data-uid="user._id">
@@ -62,25 +88,33 @@
                                           </div>
                                       </div>
                                   </li>
-                              </ul>
+                                </ul>
+                            <% });%>
                           </div>
+                          <hr>
+                            <div class="read-more-contacts">
+                                <a href="javascript:void(0)" id="link-read-more-contact">
+                                    <strong>Xem Thêm</strong>
+                                </a>
+                            </div>
                       </div>
                       <div id="request-contact-sent" class="tab-pane fade">
                           <div class="find-user-bottom">
-                              <ul class="contactList">
-                                  <li class="_contactList" data-uid="user._id">
+                            <% contactsSent.forEach(function(user){ %>
+                                 <ul class="contactList">
+                                  <li class="_contactList" data-uid="<%= user._id %>">
                                       <div class="contactPanel">
                                           <div class="user-avatar">
-                                              <img src="images/users/default-avatar-trungquandev-01.jpg" alt="">
+                                              <img src="images/users/<%= user.avatar %>" alt="">
                                           </div>
                                           <div class="user-name">
                                               <p>
-                                                  Trung Quân
+                                                  <%= user.username %>
                                               </p>
                                           </div>
                                           <br>
                                           <div class="user-address">
-                                              <span>&nbsp Hà Nội, Việt Nam.</span>
+                                              <span>&nbsp <%= user.address %> </span>
                                           </div>
                                           <div class="user-remove-request-sent action-danger" data-uid="user._id">
                                               Hủy yêu cầu
@@ -88,24 +122,32 @@
                                       </div>
                                   </li>
                               </ul>
+                            <% });%>
                           </div>
+                          <hr>
+                            <div class="read-more-contacts-sent">
+                                <a href="javascript:void(0)" id="link-read-more-contact-sent">
+                                    <strong>Xem Thêm</strong>
+                                </a>
+                            </div>
                       </div>
                       <div id="request-contact-received" class="tab-pane fade">
                           <div class="find-user-bottom">
                               <ul class="contactList">
-                                  <li class="_contactList" data-uid="user._id">
+                                <% contactsReceived.forEach(function(user){ %>
+                                     <li class="_contactList" data-uid="<%= user._id %>">
                                       <div class="contactPanel">
                                           <div class="user-avatar">
-                                              <img src="images/users/default-avatar-trungquandev-01.jpg" alt="">
+                                              <img src="images/users/<%= user.avatar %>" alt="">
                                           </div>
                                           <div class="user-name">
                                               <p>
-                                                  Trung Quân
+                                                  <%= user.username %>
                                               </p>
                                           </div>
                                           <br>
                                           <div class="user-address">
-                                              <span>&nbsp Hà Nội, Việt Nam.</span>
+                                              <span>&nbsp <%= user.address %></span>
                                           </div>
                                           <div class="user-acccept-contact-received" data-uid="user._id">
                                               Chấp nhận
@@ -115,8 +157,15 @@
                                           </div>
                                       </div>
                                   </li>
+                                <% });%>
                               </ul>
                           </div>
+                          <hr>
+                            <div class="read-more-contacts-received">
+                                <a href="javascript:void(0)" id="link-read-more-contact-received">
+                                    <strong>Xem Thêm</strong>
+                                </a>
+                            </div>
                       </div>
                   </div>
               </div>

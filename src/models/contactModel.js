@@ -47,6 +47,68 @@ ContactSchema.statics = {
         {"contactId": contactId},
       ]
     }).exec()
-  }
+  },
+  getContacts(userId, limit){
+    return this.find({
+      $and:[
+        // Minh gui cho ngta hoac ngta gio cho minh deu duoc
+        {$or:[
+          {"userId": userId},
+          {"contactId": userId}
+        ]},
+        {"status": true}
+      ]
+    }).sort({"createdAd": -1}).limit(limit).exec()
+  },
+  // status = true -> da la ban be
+  // status = false -> chua la ban be, tuc ma gui nhung chua dong y
+  getContactsSent(userId, limit){
+    return this.find({
+      $and:[
+        {"userId": userId},
+        {"status": false}
+      ]
+    }).sort({"createdAd": -1}).limit(limit).exec()
+  },
+  // Minh nhan duoc tuc la minh la contactID cua nguoi khac
+  getContactsReceived(userId, limit){
+    return this.find({
+      $and:[
+        {"contactId": userId},
+        {"status": false}
+      ]
+    }).sort({"createdAd": -1}).limit(limit).exec()
+  },
+  countAllContacts(userId){
+    return this.count({
+      $and:[
+        // Minh gui cho ngta hoac ngta gio cho minh deu duoc
+        {$or:[
+          {"userId": userId},
+          {"contactId": userId}
+        ]},
+        {"status": true}
+      ]
+    }).exec()
+  },
+  // status = true -> da la ban be
+  // status = false -> chua la ban be, tuc ma gui nhung chua dong y
+  countAllContactsSent(userId){
+    return this.count({
+      $and:[
+        {"userId": userId},
+        {"status": false}
+      ]
+    }).exec()
+  },
+  // Minh nhan duoc tuc la minh la contactID cua nguoi khac
+  countAllContactReceived(userId){
+    return this.count({
+      $and:[
+        {"contactId": userId},
+        {"status": false}
+      ]
+    }).exec()
+  } 
 }
 module.exports = mongoose.model("contact", ContactSchema);

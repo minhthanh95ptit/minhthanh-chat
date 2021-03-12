@@ -12,13 +12,13 @@ let updatePassword = (id, dataUpdate) =>{
   return new Promise(async (resolve, reject) =>{
     let currentUser = await userModel.findUserById(id)
 
-    console.log(currentUser)
+    // console.log(currentUser)
     if(!currentUser){
       return reject(transErrors.account_undefined)
     }
 
     let checkCurrentpassword = await currentUser.comparePassword(dataUpdate.currentPassword);
-    console.log(checkCurrentpassword)
+    // console.log(checkCurrentpassword)
 
     if(!checkCurrentpassword){
       return reject(transErrors.user_current_password_wrong);

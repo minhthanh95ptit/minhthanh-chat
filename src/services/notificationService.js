@@ -10,7 +10,7 @@ let getNotification = (currentUserId) =>{
   return new Promise(async (resolve, reject) =>{
     try{
       let notifications = await NotificationModel.model.getByUserIdAndLimit(currentUserId, LIMIT_NUMBER_TAKEN)
-      console.log(notifications)
+      // console.log(notifications)
       let getNotifContent = notifications.map(async (notification) =>{
         let sender = await UserModel.findUserById(notification.senderId)
 

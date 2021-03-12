@@ -19,11 +19,13 @@ let findUsersContact = async (req, res) =>{
   try {
     let currentUserId = req.user._id
     let keyword = req.params.keyword
-
+    
     // console.log(currentUserId, keyword)
 
+    console.log(typeof currentUserId);
     let users = await contact.findUsersContact(currentUserId, keyword)
 
+    // console.log(users)
     return res.render("main/contact/sections/_findUsersContact",{users})
     // console.log(users)
 

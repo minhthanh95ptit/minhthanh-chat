@@ -1,6 +1,6 @@
 function increaseNumberNotisContact(className){
   let currentValue = +$(`.${className}`).find("em").text();
-  currentValue += number;
+  currentValue += 1;
 
   if(currentValue === 0){
     $(`.${className}`).html("")
@@ -15,7 +15,7 @@ function increaseNumberNotisContact(className){
 
 function decreaseNumberNotisContact(className){
   let currentValue = +$(`.${className}`).find("em").text();
-  currentValue -= number;
+  currentValue -= 1;
 
   if(currentValue === 0){
     $(`.${className}`).html("")
