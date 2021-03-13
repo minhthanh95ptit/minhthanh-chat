@@ -30,7 +30,7 @@ $(document).ready(function(){
                 <div class="user-address">
                     <span>&nbsp ${(user.address) ? (user.address): ""} </span>
                 </div>
-                <div class="user-remove-request-sent action-danger" data-uid="${user._id}">
+                <div class="user-remove-request-sent action-danger display-important" data-uid="${user._id}">
                     Hủy yêu cầu
                 </div>
             </div>
@@ -38,6 +38,7 @@ $(document).ready(function(){
          )
       })
     });
+    removeRequestContactSent();
     $("#link-read-more-contacts-sent").css("display", "inline-block");
     $(".read-more-contacts-sent-loader").css("display", "none");
   })
