@@ -64,8 +64,8 @@
                       </div>
                       <div id="contacts" class="tab-pane fade">
                           <div class="find-user-bottom">
-                            <% contacts.forEach(function(user){ %>
-                                 <ul class="contactList">
+                            <ul class="contactList">
+                            <% contacts.forEach(function(user){ %> 
                                   <li class="_contactList" data-uid="<%= user._id %>">
                                       <div class="contactPanel">
                                           <div class="user-avatar">
@@ -88,20 +88,22 @@
                                           </div>
                                       </div>
                                   </li>
-                                </ul>
+                             
                             <% });%>
+                            </ul>
                           </div>
                           <hr>
                             <div class="read-more-contacts">
-                                <a href="javascript:void(0)" id="link-read-more-contact">
+                                <a href="javascript:void(0)" id="link-read-more-contacts">
                                     <strong>Xem Thêm</strong>
                                 </a>
+                                <div class="read-more-contacts-loader"></div><div></div>
                             </div>
                       </div>
                       <div id="request-contact-sent" class="tab-pane fade">
                           <div class="find-user-bottom">
+                            <ul class="contactList">
                             <% contactsSent.forEach(function(user){ %>
-                                 <ul class="contactList">
                                   <li class="_contactList" data-uid="<%= user._id %>">
                                       <div class="contactPanel">
                                           <div class="user-avatar">
@@ -121,17 +123,18 @@
                                           </div>
                                       </div>
                                   </li>
-                              </ul>
                             <% });%>
+                            </ul>
                           </div>
                           <hr>
                             <div class="read-more-contacts-sent">
-                                <a href="javascript:void(0)" id="link-read-more-contact-sent">
+                                <a href="javascript:void(0)" id="link-read-more-contacts-sent">
                                     <strong>Xem Thêm</strong>
                                 </a>
+                                <div class="read-more-contacts-sent-loader"></div><div></div>
                             </div>
                       </div>
-                      <div id="request-contact-received" class="tab-pane fade">
+                      <div id="request-contact-received" class="tab-pane fade"> 
                           <div class="find-user-bottom">
                               <ul class="contactList">
                                 <% contactsReceived.forEach(function(user){ %>
@@ -162,7 +165,7 @@
                           </div>
                           <hr>
                             <div class="read-more-contacts-received">
-                                <a href="javascript:void(0)" id="link-read-more-contact-received">
+                                <a href="javascript:void(0)" id="link-read-more-contacts-received">
                                     <strong>Xem Thêm</strong>
                                 </a>
                             </div>
