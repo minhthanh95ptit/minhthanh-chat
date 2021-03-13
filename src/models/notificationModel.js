@@ -15,7 +15,7 @@ NotificationSchema.statics = {
   createNew(item){
     return this.create(item) // return Promise so onece will use async/await
   },
-  removeRequestContactNotification(senderId, receiverId, type){
+  removeRequestContactSentNotification(senderId, receiverId, type){
     return this.remove({
       $and:[
         {"senderId": senderId},

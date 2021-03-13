@@ -22,7 +22,6 @@ let findUsersContact = async (req, res) =>{
     
     // console.log(currentUserId, keyword)
 
-    console.log(typeof currentUserId);
     let users = await contact.findUsersContact(currentUserId, keyword)
 
     // console.log(users)
@@ -48,12 +47,12 @@ let addNew = async (req, res) =>{
   }
 };
 
-let removeRequestContact = async (req, res) =>{
+let removeRequestContactSent = async (req, res) =>{
   try {
     let currentUserId = req.user._id
     let contactId = req.body.uid 
 
-    let removeReq = await contact.removeRequestContact(currentUserId, contactId)
+    let removeReq = await contact.removeRequestContactSent(currentUserId, contactId)
     // console.log(removeReq)
     // console.log(!!removeReq)
     return res.status(200).send({success: !!removeReq});
@@ -110,7 +109,7 @@ let readMoreContactsReceived = async (req, res) =>{
 module.exports = {
   findUsersContact: findUsersContact,
   addNew: addNew,
-  removeRequestContact: removeRequestContact,
+  removeRequestContactSent: removeRequestContactSent,
   readMoreContacts: readMoreContacts,
   readMoreContactsSent: readMoreContactsSent,
   readMoreContactsReceived: readMoreContactsReceived
