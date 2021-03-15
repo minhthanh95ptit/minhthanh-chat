@@ -7,6 +7,8 @@ function addContact(){
         $("#find-user").find(`div.user-add-new-contact[data-uid = ${targetId}]`).hide();
         $("#find-user").find(`div.user-remove-request-contact-sent[data-uid = ${targetId}]`).css("display", "inline-block");
         // Xử lý realtime
+        increaseNumberNotification("noti_contact_counter", 1); 
+        
         increaseNumberNotisContact("count-request-contact-sent")
         
         let userInfoHtml = $("#find-user").find(`ul li[data-uid = ${targetId}]`).get(0).outerHTML;
@@ -34,7 +36,7 @@ socket.on("response-add-new-contact", function(user){
 
   increaseNumberNotisContact("count-request-contact-received" )
   
-  increaseNumberNotification("noti_contact_counter", 1)
+  increaseNumberNotification("noti_contact_counter", 1); 
   increaseNumberNotification("noti_counter", 1)
 
   let userInfoHtml = ` <li class="_contactList" data-uid="${user.id}">
