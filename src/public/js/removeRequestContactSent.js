@@ -10,6 +10,8 @@ function removeRequestContactSent(){
         $("#find-user").find(`div.user-add-new-contact[data-uid = ${targetId}]`).css("display", "inline-block");
         $("#find-user").find(`div.user-remove-request-contact-sent[data-uid = ${targetId}]`).hide();
 
+        //cap nhat realtime khi remove request sent
+        decreaseNumberNotification("noti_contact_counter", 1)
         decreaseNumberNotisContact("count-request-contact-sent")
 
         //Xoa o modal dang cho xac nhan
