@@ -45,6 +45,7 @@ ContactSchema.statics = {
       $and:[
         {"userId": userId},
         {"contactId": contactId},
+        {"status": false}
       ]
     }).exec()
   },
@@ -53,8 +54,18 @@ ContactSchema.statics = {
       $and:[
         {"userId": contactId},
         {"contactId": userId},
+        {"status": false}
       ]
     }).exec()
+  },
+  approveRequestContactReceived(userId, contactId){
+    return this.update({
+      $and:[
+        {"userId": contactId},
+        {"contactId": userId},
+        {"status": false}
+      ]
+    }, {"status": true}).exec()
   },
   getContacts(userId, limit){
     return this.find({
