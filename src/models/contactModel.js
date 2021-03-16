@@ -16,7 +16,23 @@ ContactSchema.statics = {
   createNew(item){
     return this.create(item) // return Promise so onece will use async/await
   },
-
+  //phai check or 2 dau, ca nguoi nhan va nguoi gui req (status true)
+  removeContact(userId, contactId){
+    return this.remove({
+      $or:[
+        {$and: [
+          {"userId": userId},
+          {"contactId": contactId},
+          {"status": true}
+        ]},
+        {$and: [
+          {"userId": contactId},
+          {"contactId": userId},
+          {"status": true}
+        ]}
+      ]
+    }).exec()
+  },
   findAllByUser(userId){
     return this.find({
       $or:[

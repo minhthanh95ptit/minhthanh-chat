@@ -32,8 +32,9 @@ function approveRequestContactReceived(){
       
           decreaseNumberNotisContact("count-request-contact-received");
           decreaseNumberNotification("noti_contact_counter", 1);
-          increaseNumberNotisContact("count_contacts");
+          increaseNumberNotisContact("count-contacts");
 
+          removeContact();
           socket.emit("approve-request-contact-received",{contactId: targetId});
         }
       }
@@ -54,8 +55,9 @@ socket.on("response-approve-request-contact-received", function(user){
   decreaseNumberNotisContact("noti_contact_counter", 1); 
   increaseNumberNotification("noti_counter", 1)
 
-  decreaseNumberNotification("count-request-contact-sent", 1);
-  increaseNumberNotisContact("count_contacts");
+  decreaseNumberNotisContact("count-request-contact-sent");
+
+  increaseNumberNotisContact("count-contacts");
 
   $("#request-contact-sent").find(`ul li[data-uid = ${user.id}]`).remove();
 
@@ -84,8 +86,10 @@ socket.on("response-approve-request-contact-received", function(user){
       </li>
   `;
   $("#contacts").find("ul").prepend(userInfoHtml);
+  removeContact();
 })
 
 $(document).ready(function(){
-  approveRequestContactReceived()
+  approveRequestContactReceived();
+  removeContact();
 })
