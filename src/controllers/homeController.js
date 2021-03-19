@@ -1,4 +1,4 @@
-import {notifcation, contact} from "./../services/index"
+import {notifcation, contact, message} from "./../services/index"
 
 let getHome = async (req, res) =>{
   //Only 10 items (one time)
@@ -25,6 +25,14 @@ let getHome = async (req, res) =>{
   let countAllContactsSent = await contact.countAllContactsSent(req.user._id);
   let countAllContactReceived = await contact.countAllContactReceived(req.user._id);
 
+  let getAllConversationItems = await  message.getAllConversationItems(req.user._id);
+
+  let allConversations = getAllConversationItems.allConversations;
+  let userConversations = getAllConversationItems.userConversations;
+  let groupConversations = getAllConversationItems.groupConversations;
+
+  
+
   return res.render("main/home/home",{
     errors: req.flash("errors"),
     success: req.flash("success"),
@@ -36,7 +44,10 @@ let getHome = async (req, res) =>{
     contactsReceived: contactsReceived ,
     countAllContacts: countAllContacts,
     countAllContactsSent: countAllContactsSent,
-    countAllContactReceived: countAllContactReceived
+    countAllContactReceived: countAllContactReceived,
+    allConversations: allConversations,
+    userConversations: userConversations,
+    groupConversations: groupConversations
   })
 }
 
