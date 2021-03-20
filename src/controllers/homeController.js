@@ -31,7 +31,7 @@ let getHome = async (req, res) =>{
   let userConversations = getAllConversationItems.userConversations;
   let groupConversations = getAllConversationItems.groupConversations;
 
-  
+  console.log(userConversations);
 
   return res.render("main/home/home",{
     errors: req.flash("errors"),
