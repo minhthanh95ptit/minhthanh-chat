@@ -81,9 +81,12 @@ ContactSchema.statics = {
         {"contactId": userId},
         {"status": false}
       ]
-    }, {"status": true}).exec()
+    }, { 
+      "status": true,
+      "updatedAt": Date.now()
+    }).exec()
   },
-  getContacts(userId, limit){
+  getContacts(userId, limit){ //hien thi danh ba
     return this.find({
       $and:[
         // Minh gui cho ngta hoac ngta gio cho minh deu duoc
@@ -93,7 +96,7 @@ ContactSchema.statics = {
         ]},
         {"status": true}
       ]
-    }).sort({"createdAd": -1}).limit(limit).exec()
+    }).sort({"updatedAt": -1}).limit(limit).exec()
   },
   // status = true -> da la ban be
   // status = false -> chua la ban be, tuc ma gui nhung chua dong y
@@ -154,7 +157,7 @@ ContactSchema.statics = {
         ]},
         {"status": true}
       ]
-    }).sort({"createdAt": -1}).skip(skip).limit(limit).exec();
+    }).sort({"updatedAt": -1}).skip(skip).limit(limit).exec();
   },
   readMoreContactsSent(userId, skip, limit){
     return this.find({
