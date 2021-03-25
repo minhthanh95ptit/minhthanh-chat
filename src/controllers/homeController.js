@@ -32,9 +32,12 @@ let getHome = async (req, res) =>{
   let userConversations = getAllConversationItems.userConversations;
   let groupConversations = getAllConversationItems.groupConversations;
 
+<<<<<<< HEAD
   //all messages with conversations, max 30 item
   let allConversationWithMessages = getAllConversationItems.allConversationWithMessages;
 
+=======
+>>>>>>> main
   return res.render("main/home/home",{
     errors: req.flash("errors"),
     success: req.flash("success"),
