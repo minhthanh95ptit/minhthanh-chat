@@ -1,10 +1,12 @@
 import ContactModel from "./../models/contactModel";
 import UserModel from "./../models/userModel";
 import ChatGroupModel from './../models/chatGroupModel';
+import MessageModel from './../models/messageModel';
+
 import _ from "lodash";
 
 const LIMIT_CONVERSATIONS_TAKEN = 10;
-
+const LIMIT_MESSAGES_TAKEN = 30;
 let getAllConversationItems = (currentUserId) => {
   return new Promise(async (resolve, reject) =>{
     try{
@@ -31,11 +33,34 @@ let getAllConversationItems = (currentUserId) => {
 
       allConversations = _.sortBy(allConversations, (item) =>{
         return -item.createdAt;
+      });
+
+      //get messages to apply to screen chat
+      let allConversationWithMessagesPromise = allConversations.map(async (conversation)=>{
+        let getMessages = await MessageModel.model.getMessages(currentUserId, conversation._id, LIMIT_MESSAGES_TAKEN);
+
+        conversation = conversation.toObject();
+        //conversation map la array 
+        //Muon bien ve object thi toObject moi  conversation.messages = getMessages; duoc
+        conversation.messages = getMessages;
+
+        return conversation;
+      });
+
+      let allConversationWithMessages = await Promise.all(allConversationWithMessagesPromise);
+
+      console.log(allConversationWithMessages);
+      //sort By updatedAt
+      allConversationWithMessages = _.sortBy(allConversationWithMessages, (item) =>{
+        return -item.updatedAt;
       })
+
+      // console.log(allConversationWithMessages);
       resolve({
         userConversations: userConversations,
         groupConversations: groupConversations,
-        allConversations: allConversations
+        allConversations: allConversations,
+        allConversationWithMessages: allConversationWithMessages
       });
     }
     catch(error){
