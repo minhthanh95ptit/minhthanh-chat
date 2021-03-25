@@ -47,7 +47,8 @@ let updateAvatar = (req, res) =>{
       let userUpdate = await user.updateUser(req.user._id, updateUserItem)
       
       //Remove old user avatar
-      await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`)
+      //Khong Xoa Avt nguoi dung nua vi trong bang messages can su dung
+      // await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`)
       // console.log(req)
 
       let result = {
