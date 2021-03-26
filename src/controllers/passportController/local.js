@@ -44,7 +44,7 @@ let initPassportLocal = () =>{
   })
 
   passport.deserializeUser((id, done) =>{
-    UserModel.findUserById(id)
+    UserModel.findUserByIdForSessonToUse(id)
       .then(user =>{
         return done(null, user)
       })

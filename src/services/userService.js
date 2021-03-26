@@ -10,7 +10,7 @@ let updateUser = (id, item) =>{
 
 let updatePassword = (id, dataUpdate) =>{
   return new Promise(async (resolve, reject) =>{
-    let currentUser = await userModel.findUserById(id)
+    let currentUser = await userModel.findUserByIdToUpdatePassword(id)
 
     // console.log(currentUser)
     if(!currentUser){
