@@ -14,13 +14,8 @@
                   <div class="tab-pane active" id="all-chat"> 
                     <ul class="people no-padding-start">
                         <% allConversations.forEach(function(conversation){ %>
-<<<<<<< HEAD
                             <% if(conversation.members){ %>
                                 <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
-=======
-                            <% if(conversation.member){ %>
-                                <a href="#uid_<%= conversation._id %>" class="room-chat">
->>>>>>> main
                                     <li class="person group-chat" data-chat="<%= conversation._id %>">
                                         <div class="left-avatar">
                                             <!-- <div class="dot"></div> -->
@@ -34,13 +29,8 @@
                                     </li>
                                 </a> 
                             <%} else{ %>
-<<<<<<< HEAD
                                 <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                                     <li class="person" data-chat="<% conversation._id %>">
-=======
-                                <a href="#uid_<% conversation._id %>" class="room-chat">
-                                    <li class="person" data-chat="<%= conversation._id %>">
->>>>>>> main
                                         <div class="left-avatar">
                                             <div class="dot"></div>
                                             <img src="images/users/<%= conversation.avatar %>" alt="">
@@ -64,11 +54,7 @@
                   <div class="tab-pane" id="user-chat">
                     <ul class="people no-padding-start">
                         <% userConversations.forEach(function(conversation){ %>
-<<<<<<< HEAD
                                 <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
-=======
-                                <a href="#uid_<%= conversation._id %>" class="room-chat">
->>>>>>> main
                                     <li class="person" data-chat="<%= conversation._id %>">
                                         <div class="left-avatar">
                                             <div class="dot"></div>
@@ -92,11 +78,7 @@
                     <div class="tab-pane " id="group-chat">
                         <ul class="people no-padding-start">
                             <% groupConversations.forEach(function(conversation){ %>
-<<<<<<< HEAD
                                 <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
-=======
-                                <a href="#uid_<%= conversation._id %>" class="room-chat">
->>>>>>> main
                                     <li class="person group-chat" data-chat="<%= conversation._id %>">
                                         <div class="left-avatar">
                                             <!-- <div class="dot"></div> -->
