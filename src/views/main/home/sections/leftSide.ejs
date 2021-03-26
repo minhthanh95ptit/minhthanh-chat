@@ -13,7 +13,7 @@
               <div class="tab-content">
                   <div class="tab-pane active" id="all-chat"> 
                     <ul class="people no-padding-start">
-                        <% allConversations.forEach(function(conversation){ %>
+                        <% allConversationWithMessages.forEach(function(conversation){ %>
                             <% if(conversation.members){ %>
                                 <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                                     <li class="person group-chat" data-chat="<%= conversation._id %>">
@@ -25,7 +25,17 @@
                                             <span class="group-chat-name">Group:</span> <%= conversation.name %>
                                          </span>
                                         <span class="time">Hai giờ trước</span>
-                                        <span class="preview">Chào cả nhóm</span>
+                                        <span class="preview">
+                                            <% if(lastItemOfArray(conversation.messages).messageType === "text") {%>
+                                                <%= lastItemOfArray(conversation.messages).text %>
+                                            <% } %>
+                                            <% if(lastItemOfArray(conversation.messages).messageType === "file") {%>
+                                                Tệp đính kèm ...
+                                            <% } %>
+                                            <% if(lastItemOfArray(conversation.messages).messageType === "image") {%>
+                                                Hình ảnh ... 
+                                            <% } %>
+                                        </span>
                                     </li>
                                 </a> 
                             <%} else{ %>
@@ -38,8 +48,20 @@
                                         <span class="name">
                                             <%= conversation.username %>
                                         </span>
-                                        <span class="time">Một phút trước</span>
-                                        <span class="preview">Xin chào</span>
+                                        <span class="time">
+                                            <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).createdAt) %>
+                                        </span>
+                                        <span class="preview">
+                                            <% if(lastItemOfArray(conversation.messages).messageType === "text") {%>
+                                                <%= lastItemOfArray(conversation.messages).text %>
+                                            <% } %>
+                                            <% if(lastItemOfArray(conversation.messages).messageType === "file") {%>
+                                                Tệp đính kèm ...
+                                            <% } %>
+                                            <% if(lastItemOfArray(conversation.messages).messageType === "image") {%>
+                                                Hình ảnh ... 
+                                            <% } %>
+                                        </span>
                                     </li>
                                 </a>
                             <% } %>
@@ -53,7 +75,8 @@
                   </div>
                   <div class="tab-pane" id="user-chat">
                     <ul class="people no-padding-start">
-                        <% userConversations.forEach(function(conversation){ %>
+                        <% allConversationWithMessages.forEach(function(conversation){ %>
+                            <% if(!conversation.members){ %>
                                 <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
                                     <li class="person" data-chat="<%= conversation._id %>">
                                         <div class="left-avatar">
@@ -63,10 +86,24 @@
                                         <span class="name">
                                             <%= conversation.username %>
                                         </span>
-                                        <span class="time">Một phút trước</span>
-                                        <span class="preview">Xin chào</span>
+                                        <span class="time">
+                                            <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).createdAt) %>
+                                        </span>
+                                        <span class="preview">
+                                            <% if(lastItemOfArray(conversation.messages).messageType === "text") {%>
+                                                <%= lastItemOfArray(conversation.messages).text %>
+                                            <% } %>
+                                            <% if(lastItemOfArray(conversation.messages).messageType === "file") {%>
+                                                Tệp đính kèm ...
+                                            <% } %>
+                                            <% if(lastItemOfArray(conversation.messages).messageType === "image") {%>
+                                                Hình ảnh ... 
+                                            <% } %>
+                                        </span>
                                     </li>
                                 </a>
+                            }
+      
                         <% }); %> 
                     </ul>
                     <div class="read-more-user-chat">
@@ -77,21 +114,34 @@
                     </div>
                     <div class="tab-pane " id="group-chat">
                         <ul class="people no-padding-start">
-                            <% groupConversations.forEach(function(conversation){ %>
-                                <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
-                                    <li class="person group-chat" data-chat="<%= conversation._id %>">
-                                        <div class="left-avatar">
-                                            <!-- <div class="dot"></div> -->
-                                            <img src="images/users/1613831832852-7c6b149e-cebb-47ab-8d03-49642499f6bf-103844913_319104439486820_7170255858342971473_n.jpg" alt="">
-                                        </div>
-                                        <span class="name">
-                                            <span class="group-chat-name">Group:</span> <%= conversation.name %>
-                                         </span>
-                                        <span class="time">Hai giờ trước</span>
-                                        <span class="preview">Chào cả nhóm</span>
-                                    </li>
-                                </a> 
-                           
+                            <% allConversationWithMessages.forEach(function(conversation){ %>
+                                <% if(conversation.members){ %>
+                                    <a href="#uid_<%= conversation._id %>" class="room-chat" data-target="#to_<%= conversation._id %>">
+                                        <li class="person group-chat" data-chat="<%= conversation._id %>">
+                                            <div class="left-avatar">
+                                                <!-- <div class="dot"></div> -->
+                                                <img src="images/users/1613831832852-7c6b149e-cebb-47ab-8d03-49642499f6bf-103844913_319104439486820_7170255858342971473_n.jpg" alt="">
+                                            </div>
+                                            <span class="name">
+                                                <span class="group-chat-name">Group:</span> <%= conversation.name %>
+                                             </span>
+                                            <span class="time">
+                                                <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).createdAt) %>
+                                            </span>
+                                            <span class="preview">
+                                                <% if(lastItemOfArray(conversation.messages).messageType === "text") {%>
+                                                    <%= lastItemOfArray(conversation.messages).text %>
+                                                <% } %>
+                                                <% if(lastItemOfArray(conversation.messages).messageType === "file") {%>
+                                                    Tệp đính kèm ...
+                                                <% } %>
+                                                <% if(lastItemOfArray(conversation.messages).messageType === "image") {%>
+                                                    Hình ảnh ... 
+                                                <% } %>
+                                            </span>
+                                        </li>
+                                    </a> 
+                                }
                             <% }); %> 
                         </ul>
                         <div class="read-more-group-chat">

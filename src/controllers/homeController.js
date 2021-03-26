@@ -1,5 +1,5 @@
 import {notifcation, contact, message} from "./../services/index"
-import {bufferToBase64} from "./../helpers/clientHelper"
+import {bufferToBase64, lastItemOfArray, convertTimestampToHumanTime} from "./../helpers/clientHelper"
 
 let getHome = async (req, res) =>{
   //Only 10 items (one time)
@@ -49,11 +49,10 @@ let getHome = async (req, res) =>{
     countAllContacts: countAllContacts,
     countAllContactsSent: countAllContactsSent,
     countAllContactReceived: countAllContactReceived,
-    allConversations: allConversations,
-    userConversations: userConversations,
-    groupConversations: groupConversations,
     allConversationWithMessages: allConversationWithMessages,
-    bufferToBase64: bufferToBase64
+    bufferToBase64: bufferToBase64,
+    lastItemOfArray: lastItemOfArray,
+    convertTimestampToHumanTime: convertTimestampToHumanTime
   })
 }
 
