@@ -21,6 +21,9 @@ ChatGroupSchema.statics = {
       //elemMatch -> neu co phan tu trong mang thoa man dieu kien thi lay ca array do
       "members": {$elemMatch: {"userId": userId}}
     }).sort({"updatedAt": -1}).limit(limit).exec(); 
+  },
+  getChatGroupById(id){
+    return this.findById().exec();
   }
 }
 // user de so it thoi

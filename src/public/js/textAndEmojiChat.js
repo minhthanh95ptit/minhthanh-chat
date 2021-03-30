@@ -1,6 +1,6 @@
 function textAndEmojiChat(divId){
   $(".emojionearea").unbind("keyup").on("keyup", function(element){
-    console.log(element)
+   
     if(element.which === 13){
       let targetId =  $(`#write-chat-${divId}`).data("chat");
       let messageVl =  $(`#write-chat-${divId}`).val();
@@ -18,11 +18,13 @@ function textAndEmojiChat(divId){
         dataTextEmojiForSend.isChatGroup = true;
       }
 
+      console.log(dataTextEmojiForSend);
       //call send message 
       $.post("/message/add-new-text-emoji", dataTextEmojiForSend, function(data){
-
+        // console.log(data);
+        // console.log(data.message);
       }).fail(function(response){
-
+        console.log(response)
       })
     }
   })

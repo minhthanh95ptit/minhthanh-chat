@@ -96,7 +96,7 @@ ContactSchema.statics = {
         ]},
         {"status": true}
       ]
-    }).sort({"updatedAt": -1}).limit(limit).exec()
+    }).sort({"updatedAt": 1}).limit(limit).exec()
   },
   // status = true -> da la ban be
   // status = false -> chua la ban be, tuc ma gui nhung chua dong y
@@ -174,6 +174,22 @@ ContactSchema.statics = {
         {"status": false}
       ]
     }).sort({"createdAt": -1}).skip(skip).limit(limit).exec();
+  },
+  updateWhenHasNewMessage(userId, contactId){
+    return this.update({
+      $or:[
+        {$and: [
+          {"userId": userId},
+          {"contactId": contactId}
+        ]},
+        {$and: [
+          {"userId": contactId},
+          {"contactId": userId}
+        ]}
+      ]
+    },{
+      "updatedAt": Date.now()
+    }).exec();
   }
 }
 module.exports = mongoose.model("contact", ContactSchema);
