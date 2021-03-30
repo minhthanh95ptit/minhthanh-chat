@@ -25,6 +25,9 @@ let MessageSchema = new Schema({
 });
 
 MessageSchema.statics = {
+ createNew(item){
+  return this.create(item);
+  },
   /*
   senderID: currentUserId  
   */
@@ -45,6 +48,13 @@ MessageSchema.statics = {
   //receiverId : Id cua 1 group chat cu the
   getMessagesInGroup(receiverId, limit){
     return this.find({"receiverId": receiverId }).sort({"createdAt": 1}).limit(limit).exec();
+  },
+  updateWhenHasNewMessage(id, newMessageAmount){
+    return this.findByIdAndUpdate(id, {
+      "messageAmount": newMessageAmount,
+      "updatedAt": Date.now()
+
+    }).exec();
   }
 };
 
