@@ -181,17 +181,25 @@ function changeTypeChat(){
 function changeScreentChat(){
   //Do dung nhieu nen phai unbind
   $(".room-chat").unbind("click").on("click", function(){
-    $(".person").removeClass("active");
-    $(this).find("li").addClass("active");
-    $(this).tab("show");
+     //Cau hinh thanh cuon ben box chat rightSide.ejs, moi khi click chuot vao 1 cuoc tro chuyen cu the
+     let divId = $(this).find("li").data("chat");
 
-    //Cau hinh thanh cuon ben box chat rightSide.ejs, moi khi click chuot vao 1 cuoc tro chuyen cu the
-    let divId = $(this).find("li").data("chat");
+    $(".person").removeClass("active");
+    $(`.person[data-chat=${divId}]`).addClass("active");
+    $(this).tab("show");
 
     nineScrollRight(divId);
 
     // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
     enableEmojioneArea(divId);
+  })
+}
+
+function convertEmoji(){
+  $(".convert-emoji").each(function(){
+    var original = $(this).html();
+    var converted = emojione.toImage(original);
+    $(this).html(converted);
   })
 }
 
@@ -230,5 +238,8 @@ $(document).ready(function() {
 
   changeScreentChat();
 
+  convertEmoji();
+  
   $("ul.people").find("a")[0].click();
+
 });
