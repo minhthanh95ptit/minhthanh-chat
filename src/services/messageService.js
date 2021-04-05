@@ -119,7 +119,7 @@ let addNewTextEmoji = (sender, receiverId, messageVal, isChatGroup) =>{
           text: messageVal,
           createdAt: Date.now()
         }; 
-        console.log(newMessageItems);
+        // console.log(newMessageItems);
 
         // create new message
         let newMessage = await MessageModel.model.createNew(newMessageItems);
