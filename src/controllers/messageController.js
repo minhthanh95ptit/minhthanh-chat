@@ -2,7 +2,7 @@ import {validationResult} from "express-validator/check"
 import {message} from "./../services/index"
 
 let addNewTextEmoji = (async (req, res) =>{
-  console.log("Controller");
+  // console.log("Controller");
   let errorArr = []
   let validationErrors = validationResult(req)
   
@@ -17,9 +17,11 @@ let addNewTextEmoji = (async (req, res) =>{
     return res.status(500).send(errorArr)
   }
 
+  // console.log(req.user);
+
   try{
     let sender = {
-      id: req.user.id,
+      id: req.user._id,
       name: req.user.username,
       avatar: req.user.avatar
     };
@@ -29,6 +31,8 @@ let addNewTextEmoji = (async (req, res) =>{
     let isChatGroup = req.body.isChatGroup;
 
     let newMessage = await message.addNewTextEmoji(sender, receiverId, messageVal, isChatGroup);
+
+    // console.log(typeof newMessage)
 
     // console.log(newMessage);
     return res.status(200).send({message: newMessage})
