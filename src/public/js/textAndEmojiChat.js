@@ -72,10 +72,13 @@ function textAndEmojiChat(divId){
 
        //Step 06: emit realtime. Emit su kien len server
        socket.emit("chat-text-emoji", dataToEmit);
-       console.log(dataToEmit);
+      //  console.log(dataToEmit);
       }).fail(function(response){
         alertify.notify(response.responseText, "error", 7);
       })
+
+      //step 07: Emit remove typing real-time
+      typingOff(divId);
     }
   })
 
