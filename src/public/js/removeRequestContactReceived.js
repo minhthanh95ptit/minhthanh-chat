@@ -27,7 +27,7 @@ function removeRequestContactReceived(){
 }
 
 socket.on("response-remove-request-contact-received", function(user){
-  console.log(user);
+  // console.log(user);
   // Do man hinh cua nguoi gui can xu ly nen 2 dong an/hien nay phai cho vao socket
   $("#find-user").find(`div.user-add-new-contact[data-uid = ${user.id}]`).css("display", "inline-block");
   $("#find-user").find(`div.user-remove-request-contact-received[data-uid = ${user.id}]`).hide();

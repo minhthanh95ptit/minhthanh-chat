@@ -141,7 +141,7 @@ let readMoreContactsReceived = async (req, res) =>{
      // get more item
      let newContactUsers = await contact.readMoreContactsReceived(req.user._id, skipNumberContacts)
      
-    console.log(newContactUsers);
+    // console.log(newContactUsers);
      return res.status(200).send(newContactUsers)
   } catch (error) {
     return res.status(500).send(error)

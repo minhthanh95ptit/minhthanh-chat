@@ -2,7 +2,7 @@ function removeContact(){
   $(".user-remove-contact").unbind("click").on("click", function(){
     let targetId = $(this).data("uid") //data-uid
     let userName = $(this).parent().find("div.user-name p").text();
-    console.log(targetId)
+    // console.log(targetId)
 
     Swal.fire({
       title: `Bạn có chắc chắn muốn xóa ${userName} khỏi danh bạ ?`,

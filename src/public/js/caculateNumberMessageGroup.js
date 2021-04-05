@@ -1,4 +1,4 @@
-function increaseNumberMessageGroup(className){
+function increaseNumberMessageGroup(divId){
   //Dau + convert string to number
   let currentValue = +$(`.right[data-chat=${divId}]`).find("span.show-number-messages").text();
   currentValue += 1;

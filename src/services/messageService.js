@@ -49,8 +49,16 @@ let getAllConversationItems = (currentUserId) => {
           conversation.messages = _.reverse(getMessages);
         }
         else{
+          console.log(currentUserId);
+          console.log(conversation._id);
+          console.log(LIMIT_MESSAGES_TAKEN);
+
           let getMessages = await MessageModel.model.getMessagesInPersonal(currentUserId, conversation._id, LIMIT_MESSAGES_TAKEN);
+          
+          console.log(getMessages);
+
           conversation.messages = _.reverse(getMessages);
+          // console.log(conversation.messages)
         }
         //conversation map la array 
         //Muon bien ve object thi toObject moi  conversation.messages = getMessages; duoc
@@ -66,7 +74,7 @@ let getAllConversationItems = (currentUserId) => {
         return -item.updatedAt;
       })
 
-      console.log(allConversationWithMessages);
+      // console.log(allConversationWithMessages);
       resolve({
         allConversationWithMessages: allConversationWithMessages
       });
@@ -99,6 +107,8 @@ let addNewTextEmoji = (sender, receiverId, messageVal, isChatGroup) =>{
           avatar: app.general_avatar_group_chat
         }
 
+        // console.log(sender.id);
+
         let newMessageItems = {
           senderId: sender.id,
           receiverId: receiver.id,
@@ -109,6 +119,8 @@ let addNewTextEmoji = (sender, receiverId, messageVal, isChatGroup) =>{
           text: messageVal,
           createdAt: Date.now()
         }; 
+        console.log(newMessageItems);
+
         // create new message
         let newMessage = await MessageModel.model.createNew(newMessageItems);
         //update group chat
@@ -129,7 +141,7 @@ let addNewTextEmoji = (sender, receiverId, messageVal, isChatGroup) =>{
           avatar: getUserReceiver.avatar
         };
 
-        // console.log(receiver);
+        // console.log(sender);
 
         let newMessageItems = {
           senderId: sender.id,
@@ -148,7 +160,7 @@ let addNewTextEmoji = (sender, receiverId, messageVal, isChatGroup) =>{
         // console.log(newMessage);
         //update contact
         let result = await ContactModel.updateWhenHasNewMessage(sender.id, getUserReceiver._id);
-        console.log(result);
+        // console.log(result);
         resolve(newMessage);
       }
     }

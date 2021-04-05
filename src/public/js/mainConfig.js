@@ -92,7 +92,7 @@ function gridPhotos(layoutNumber) {
   $(".show-images").unbind("click").on("click", function(){
       let href = $(this).attr("href");
       let modalImagesId = href.replace("#", "");
-      console.log(modalImagesId);
+      // console.log(modalImagesId);
 
       let countRows = Math.ceil($(`#${modalImagesId}`).find('div.all-images>img').length / layoutNumber);
       let layoutStr = new Array(countRows).fill(layoutNumber).join("");
