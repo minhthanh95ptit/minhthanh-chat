@@ -99,6 +99,7 @@ function gridPhotos(layoutNumber) {
       let href = $(this).attr("href");
       let modalImagesId = href.replace("#", "");
       // console.log(modalImagesId);
+      let originDataImage = $(`#${modalImagesId}`).find("div.modal-body").html();
 
       let countRows = Math.ceil($(`#${modalImagesId}`).find('div.all-images>img').length / layoutNumber);
       let layoutStr = new Array(countRows).fill(layoutNumber).join("");
@@ -119,6 +120,11 @@ function gridPhotos(layoutNumber) {
           });
         }
       });
+      // bat su kien dong Modal
+      $(`#${modalImagesId}`).on("hidden.bs.modal", function(){
+        $(this).find("div.modal-body").html(originDataImage);
+      })
+
   });
 
   
