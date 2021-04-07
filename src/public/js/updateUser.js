@@ -69,7 +69,10 @@ function updateUserInfo(){
       let formData = new FormData()
       formData.append("avatar", fileData)
 
+      // console.log(formData)
       userAvatar = formData
+
+      console.log(userAvatar);
     }
     else{
       alertify.notify("Trình duyệt của bạn không hỗ trợ File Reader", "error", 7)
@@ -205,7 +208,7 @@ function callUpdateUserAvatar(){
 
       // Update avatar
       $("#navbar-avatar").attr("src", result.imageSrc)
-      updateInfo
+      // updateInfo()
       //update origin avatar src
       originAvatarSrc = result.imageSrc
 
