@@ -124,17 +124,6 @@ function gridPhotos(layoutNumber) {
   
 }
 
-// function showButtonGroupChat() {
-//   $('#select-type-chat').bind('change', function() {
-//     if ($(this).val() === 'group-chat') {
-//       $('.create-group-chat').show();
-//       // Do something...
-//     } else {
-//       $('.create-group-chat').hide();
-//     }
-//   });
-// }
-
 function addFriendsToGroup() {
   $('ul#group-chat-friends').find('div.add-user').bind('click', function() {
     let uid = $(this).data('uid');
@@ -198,6 +187,9 @@ function changeScreentChat(){
 
     // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
     enableEmojioneArea(divId);
+
+    // Bat lang nghe DOM cho viec chat tin nhan hinh anh
+    imageChat(divId);
   })
 }
 
