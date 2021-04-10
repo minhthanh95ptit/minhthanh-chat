@@ -5,5 +5,8 @@ export const app = {
   general_avatar_group_chat: "group-avatar-trungquandev.png",
   image_message_directory: "src/public/images/chat/message",
   image_type: ["image/png", "image/jpg", "image/jpeg"],
-  image_limit_size: 1048576 
+  image_limit_size: 1048576,
+  attachment_message_directory: "src/public/images/chat/message",
+  image_type: ["image/png", "image/jpg", "image/jpeg"],
+  image_limit_size: 1048576, 
 }

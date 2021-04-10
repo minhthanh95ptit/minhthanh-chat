@@ -1,0 +1,56 @@
+[{
+  "_id": {
+    "$oid": "604c2ad3865b1a42c77c1219"
+  },
+  "userId": "604af553fe5eec56a584beff",
+  "contactId": "604af244cb19eb524377857d",
+  "deletedAt": null,
+  "updatedAt": null,
+  "createdAt": 1615604435224,
+  "status": true,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604c2ad4865b1a42c77c121b"
+  },
+  "userId": "604af553fe5eec56a584beff",
+  "contactId": "604af25dcb19eb524377857e",
+  "deletedAt": null,
+  "updatedAt": null,
+  "createdAt": 1615604436098,
+  "status": true,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604c2ad5865b1a42c77c121d"
+  },
+  "userId": "604af553fe5eec56a584beff",
+  "contactId": "604af27acb19eb524377857f",
+  "deletedAt": null,
+  "updatedAt": null,
+  "createdAt": 1615604437053,
+  "status": true,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604c2ad5865b1a42c77c121f"
+  },
+  "userId": "604af553fe5eec56a584beff",
+  "contactId": "604af300fe5eec56a584befe",
+  "deletedAt": null,
+  "updatedAt": null,
+  "createdAt": 1615604437684,
+  "status": true,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "604c2b7dad2b2e43807231c8"
+  },
+  "userId": "604af553fe5eec56a584beff",
+  "contactId": "604af27acb19eb524377857f",
+  "deletedAt": null,
+  "updatedAt": null,
+  "createdAt": 1615604437053,
+  "status": true,
+  "__v": 0
+}]
