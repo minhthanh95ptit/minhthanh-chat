@@ -260,8 +260,96 @@ let addNewImage = (sender, receiverId, messageVal, isChatGroup) =>{
   })
 };
 
+let addNewAttachment = (sender, receiverId, messageVal, isChatGroup) =>{
+  // console.log("Service");
+  return new Promise(async (resolve, reject) =>{
+    try{
+      if(isChatGroup){
+        let getChatGroupReceiver = await ChatGroupModel.getChatGroupById(receiverId);
+
+        if(!getChatGroupReceiver){
+          return reject(transErrors.conversation_not_found);
+        }
+
+        let receiver = {
+          id: getChatGroupReceiver._id,
+          name: getChatGroupReceiver.name,
+          avatar: app.general_avatar_group_chat
+        }
+
+        let attachmentBuffer = await fsExtra.readFile(messageVal.path);
+        let attachmentContentType = messageVal.mimetype;
+        let attachmentName = messageVal.originalname;
+
+        let newMessageItems = {
+          senderId: sender.id,
+          receiverId: receiver.id,
+          conversationType: MessageModel.conversationType.GROUP,
+          messageType: MessageModel.messageTypes.FILE,
+          sender: sender,
+          receiver: receiver,
+          file: {data: attachmentBuffer, contentType: attachmentContentType, fileName: attachmentName},
+          createdAt: Date.now()
+        }; 
+        // console.log(newMessageItems);
+
+        // create new message
+        let newMessage = await MessageModel.model.createNew(newMessageItems);
+        //update group chat
+        await ChatGroupModel.updateWhenHasNewMessage(getChatGroupReceiver._id, getChatGroupReceiver.messageAmount + 1);
+        resolve(newMessage);
+      }
+      else{
+        let getUserReceiver = await UserModel.getNormalUserDataById(receiverId);
+
+        // console.log(getUserReceiver);
+        if(!getUserReceiver){
+          return reject(transErrors.conversation_not_found);
+        }
+
+        // console.log(getUserReceiver);
+        let receiver = {
+          id: getUserReceiver._id,
+          name: getUserReceiver.username,
+          avatar: getUserReceiver.avatar
+        };
+
+        // console.log(sender);
+
+        let attachmentBuffer = await fsExtra.readFile(messageVal.path);
+        let attachmentContentType = messageVal.mimetype;
+        let attachmentName = messageVal.originalname;
+
+        // console.log(attachmentName);
+        
+        let newMessageItems = {
+          senderId: sender.id,
+          receiverId: receiver.id,
+          conversationType: MessageModel.conversationType.PERSONAL,
+          messageType: MessageModel.messageTypes.FILE,
+          sender: sender,
+          receiver: receiver,
+          file: {data: attachmentBuffer, contentType: attachmentContentType, fileName: attachmentName},
+          createdAt: Date.now()
+        }; 
+
+        // console.log(newMessageItems);
+        //create new Message
+        let newMessage = await MessageModel.model.createNew(newMessageItems);
+        // console.log(newMessage);
+        await ContactModel.updateWhenHasNewMessage(sender.id, getUserReceiver._id);
+        // console.log(result);
+        resolve(newMessage);
+      }
+    }
+    catch(error){
+      reject(error);
+    }
+  })
+};
 module.exports = {
   getAllConversationItems: getAllConversationItems,
   addNewTextEmoji: addNewTextEmoji,
-  addNewImage: addNewImage
+  addNewImage: addNewImage,
+  addNewAttachment: addNewAttachment
 }

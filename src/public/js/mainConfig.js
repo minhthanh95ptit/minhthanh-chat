@@ -196,6 +196,9 @@ function changeScreentChat(){
 
     // Bat lang nghe DOM cho viec chat tin nhan hinh anh
     imageChat(divId);
+
+     // Bat lang nghe DOM cho viec chat tin nhan file
+    attachmentChat(divId);
   })
 }
 
@@ -208,6 +211,12 @@ function convertEmoji(){
 }
 
 
+function bufferToBase64(buffer){
+  return btoa(
+    new Uint8Array(buffer)
+      .reduce((data, byte) => data + String.fromCharCode(byte), "")
+  );
+}
 $(document).ready(function() {
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
