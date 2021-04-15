@@ -13,6 +13,8 @@ import initSockets from "./sockets/index"
 import configSocketIo from "./config/socketio"
 import passportSocketIo from "passport.socketio"
 import cookieParser from "cookie-parser"
+import events from "events"
+import * as ConfigApp from "./config/app"
 
 import pem from "pem"
 import https from "https"
@@ -55,6 +57,9 @@ import https from "https"
 
 //  Init app
 let app = express()
+
+//set max connection event listener
+events.EventEmitter.defaultMaxListeners = ConfigApp.app.max_event_listenner
 
 // Init server with socket.io & express app
 

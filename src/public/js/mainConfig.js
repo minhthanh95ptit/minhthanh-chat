@@ -199,6 +199,8 @@ function changeScreentChat(){
 
      // Bat lang nghe DOM cho viec chat tin nhan file
     attachmentChat(divId);
+    //bat lang nghe DOM cho viec chat video
+    videoChat(divId);
   })
 }
 
@@ -255,4 +257,7 @@ $(document).ready(function() {
   
   $("ul.people").find("a")[0].click();
 
+  $("#video-chat-group").bind("click",function(){
+    alertify.notify("Không khả dụng tính năng này với nhóm trò chuyện. Vui lòng thử lại với trò chuyện cá nhân");
+  })
 });
