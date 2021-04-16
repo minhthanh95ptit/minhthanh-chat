@@ -1,5 +1,37 @@
 import {notifcation, contact, message} from "./../services/index"
 import {bufferToBase64, lastItemOfArray, convertTimestampToHumanTime} from "./../helpers/clientHelper"
+import request from "request";
+
+let getICETurnServer = () => {
+  return new Promise(async (resolve, reject) =>{
+    let o = {
+      format: "urls"
+    };
+
+    let bodyString = JSON.stringify(o);
+
+    let options = {
+      url: "https://global.xirsys.net/_turn/kid1412ubqn",
+      method: "PUT",
+      headers: {
+          "Authorization": "Basic " + Buffer.from("kid1412ubqn:a38fda72-9ec6-11eb-9efa-0242ac150003").toString("base64"),
+          "Content-Type": "application/json",
+          "Content-Length": bodyString.length
+      }
+    };
+    //Call a request to get ICE list of turn server
+
+    request(options, (error, response, body) =>{
+      if(error){
+        console.log("Error when get ICE list:" + error);
+        return reject(error);
+      }
+      let bodyJson = JSON.parse(body);
+      // console.log(bodyJson);
+      resolve(bodyJson.v.iceServers);
+    })
+  });
+};
 
 let getHome = async (req, res) =>{
   //Only 10 items (one time)
@@ -37,6 +69,8 @@ let getHome = async (req, res) =>{
 
   // console.log(req.user);
 
+  let iceServersList =  await getICETurnServer();
+  // console.log(iceServers);
   return res.render("main/home/home",{
     errors: req.flash("errors"),
     success: req.flash("success"),
@@ -52,9 +86,13 @@ let getHome = async (req, res) =>{
     allConversationWithMessages: allConversationWithMessages,
     bufferToBase64: bufferToBase64,
     lastItemOfArray: lastItemOfArray,
-    convertTimestampToHumanTime: convertTimestampToHumanTime
+    convertTimestampToHumanTime: convertTimestampToHumanTime,
+    iceServersList: JSON.stringify(iceServersList)
   })
 }
+
+//get ICE list from xirsys turn server
+
 
 module.exports = {
   getHome: getHome

@@ -95,7 +95,7 @@ let removeRequestContactReceived = (currentUserId, contactId) =>{
 let approveRequestContactReceived = (currentUserId, contactId) =>{
   return new Promise( async (resolve, reject) =>{
    let approveReq = await ContactModel.approveRequestContactReceived(currentUserId, contactId)
-    console.log(approveReq);
+    // console.log(approveReq);
     if(approveReq.nMofified === 0){
      return reject(false)
    }

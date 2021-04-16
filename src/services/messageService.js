@@ -49,13 +49,13 @@ let getAllConversationItems = (currentUserId) => {
           conversation.messages = _.reverse(getMessages);
         }
         else{
-          console.log(currentUserId);
-          console.log(conversation._id);
-          console.log(LIMIT_MESSAGES_TAKEN);
+          // console.log(currentUserId);
+          // console.log(conversation._id);
+          // console.log(LIMIT_MESSAGES_TAKEN);
 
           let getMessages = await MessageModel.model.getMessagesInPersonal(currentUserId, conversation._id, LIMIT_MESSAGES_TAKEN);
           
-          console.log(getMessages);
+          // console.log(getMessages);
 
           conversation.messages = _.reverse(getMessages);
           // console.log(conversation.messages)
