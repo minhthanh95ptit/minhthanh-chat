@@ -93,10 +93,6 @@ let addNewImage = (req, res) =>{
       let messageVal = req.file;
       let isChatGroup = req.body.isChatGroup;
   
-      console.log(receiverId);
-      console.log(messageVal);
-      console.log(isChatGroup);
-      
       let newMessage = await message.addNewImage(sender, receiverId, messageVal, isChatGroup);
   
       await fsExtra.remove(`${app.image_message_directory}/${newMessage.file.fileName}`)

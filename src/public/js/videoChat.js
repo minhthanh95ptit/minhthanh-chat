@@ -21,7 +21,7 @@ function videoChat(divId){
 function playVideoStream(videoTagId, stream){
   let video = document.getElementById(videoTagId);
   video.srcObject = stream;
-  video.onloadeddata = function(){
+  video.onloadedmetadata = function(){
     video.play();
   }
 }
@@ -39,13 +39,12 @@ $(document).ready(function(){
   // let iceServer = $("#ice-server-list").val();
 
   let getPeerId = "";
-  let config =  {'iceServers': [
-    { url: 'stun:stun.l.google.com:19302' },
-    { url: 'turn:numb.viagenie.ca:3478', credential: 'muazkh', username:'web...@live.com' },
-    { url: 'turn:numb.viagenie.ca', credential: 'muazkh', username:'web...@live.com' },
-    { url: 'turn:192.158.29.39:3478?transport=udp', credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=', username:'28224511:1379330808' },
-    { url: 'turn:192.158.29.39:3478?transport=tcp', credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=', username:'28224511:1379330808' }
-  ]}
+  
+  let iceServerList = $("#ice-server-list").val();
+
+  // console.log(iceServerList);
+
+  // console.log(typeof JSON.parse(iceServerList));
 
   const peer = new Peer({
     key: "peerjs",
@@ -53,7 +52,8 @@ $(document).ready(function(){
     secure: true,
     port: 443,
     debug: 3,
-    config: config
+    config: {"iceServers": JSON.parse(iceServerList)}
+    // config: config
   });
 
   // console.log(peer);
