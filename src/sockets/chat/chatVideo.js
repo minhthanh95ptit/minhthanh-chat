@@ -4,7 +4,7 @@ import {pushSocketIdToArray, emitNotifyToArray, removeSocketIdFromArray} from ".
 /*
  @param io from socket.io lib
 */
-let addNewContact = (io) =>{
+let chatVideo = (io) =>{
   let clients = {};
 
   io.on("connection", (socket) =>{
@@ -39,7 +39,7 @@ let addNewContact = (io) =>{
         listenerId: data.listenerId,
         callerName: data.callerName,
         listenerName: data.listenerName,
-        listenPeerId: data.listenPeerId
+        listenerPeerId: data.listenerPeerId
       }
 
       // console.log(response);
@@ -57,6 +57,8 @@ let addNewContact = (io) =>{
         listenerName: data.listenerName,
         listenerPeerId: data.listenerPeerId,
       };
+      // console.log(response);
+
       if (clients[data.listenerId]) {
         emitNotifyToArray(
           clients, 
@@ -146,4 +148,4 @@ let addNewContact = (io) =>{
   // console.log(clients)
 }
 
-module.exports = addNewContact;
+module.exports = chatVideo;

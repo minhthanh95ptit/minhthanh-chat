@@ -18,10 +18,10 @@ function videoChat(divId){
   })
 }
 
-function playVideoStream(videoTagId, stream){
+function playVideoStream(videoTagId, steam){
   let video = document.getElementById(videoTagId);
-  video.srcObject = stream;
-  video.onloadedmetadata = function(){
+  video.srcObject = steam;
+  video.onloadeddata = function(){
     video.play();
   }
 }
@@ -51,9 +51,8 @@ $(document).ready(function(){
     host: "peerjs-server-trungquandev.herokuapp.com",
     secure: true,
     port: 443,
-    debug: 3,
-    config: {"iceServers": JSON.parse(iceServerList)}
-    // config: config
+    config: {"iceServers": JSON.parse(iceServerList)},
+    debug: 3
   });
 
   // console.log(peer);
@@ -87,7 +86,7 @@ $(document).ready(function(){
       listenerId: response.listenerId,
       callerName: response.callerName,
       listenerName: response.listenerName,
-      listenPeerId: response.listenPeerId
+      listenerPeerId: response.listenerPeerId
     };
 
     //Step 06 of Caller
@@ -156,7 +155,7 @@ $(document).ready(function(){
     listenerId: response.listenerId,
     callerName: response.callerName,
     listenerName: response.listenerName,
-    listenPeerId: response.listenPeerId
+    listenerPeerId: response.listenerPeerId
   };
 
   // console.log("HUHU");
@@ -199,7 +198,7 @@ $(document).ready(function(){
         }, 1000);
       }
     },
-    onOpen: () =>{
+    onOpen: () => {
       socket.on("server-send-cancel-request-call-to-listener", function(response) {
         Swal.close();
         clearInterval(timeInterval);
@@ -224,7 +223,7 @@ $(document).ready(function(){
     getUserMedia({video: true, audio: true}, function(stream){
       
       $("#streamModal").modal("show");
-
+      
       playVideoStream("local-stream", stream);
 
       let call = peer.call(response.listenerPeerId, stream);
@@ -264,21 +263,24 @@ $(document).ready(function(){
   })
 
   socket.on("server-send-accept-call-to-listener", function (response) {     
+    console.log("Gui ve listener")
     Swal.close();
 
     clearInterval(timeInterval);
 
     let getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia).bind(navigator);
     
-    peer.on("call", function(call){
+    peer.on('call', function(call){
       getUserMedia({video: true, audio: true}, function(stream){
+        
         $("#streamModal").modal("show");
+
 
         playVideoStream("local-stream", stream);
 
         call.answer(stream);
 
-        call.on("stream", function(remoteStream){
+        call.on('stream', function(remoteStream){
           playVideoStream("remote-stream", remoteStream);
         });
           //Close modal stream
@@ -287,12 +289,11 @@ $(document).ready(function(){
           Swal.fire({
             type: "info",
             title: `Đã kết thúc cuộc gọi với &nbsp; <span style="color: #2ECC71;">${response.listenerName}</span> &nbsp; ></i>`,
-            html: `Thời gian <strong style="color: #d43f3a;"></strong> <br/></br/>
-            `,
             backdrop: "rgba(85, 85, 85, 0.4)",
             width: "52rem", //const 32rem
             allowOutsideClick: false,
             timer: 30000, //30 second
+            confirmButtonText: "Xác nhận"
         });
        })
       }, function(err){
@@ -303,8 +304,8 @@ $(document).ready(function(){
         if(err.toString() === "NotFoundError: Request device not found"){
           alertify.notify("Xin lỗi, chúng tôi không tìm thấy thiết bị nghe gọi trên máy tính của bạn", "error", 7);
         }
-      })
-    })
-  
+      });
     });
+  
+    })
 });
