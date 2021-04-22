@@ -272,30 +272,30 @@ $(document).ready(function(){
     
     peer.on('call', function(call){
       getUserMedia({video: true, audio: true}, function(stream){
-        
+        // const answerCall = confirm("Do you want to answer?")
         $("#streamModal").modal("show");
 
 
-        playVideoStream("local-stream", stream);
+      //   playVideoStream("local-stream", stream);
 
-        call.answer(stream);
+      //   call.answer(stream);
 
-        call.on('stream', function(remoteStream){
-          playVideoStream("remote-stream", remoteStream);
-        });
-          //Close modal stream
-        $("#streamModal").on("hidden.bs.modal", function(){
-          closeVideoStream(stream);
-          Swal.fire({
-            type: "info",
-            title: `Đã kết thúc cuộc gọi với &nbsp; <span style="color: #2ECC71;">${response.listenerName}</span> &nbsp; ></i>`,
-            backdrop: "rgba(85, 85, 85, 0.4)",
-            width: "52rem", //const 32rem
-            allowOutsideClick: false,
-            timer: 30000, //30 second
-            confirmButtonText: "Xác nhận"
-        });
-       })
+      //   call.on('stream', function(remoteStream){
+      //     playVideoStream("remote-stream", remoteStream);
+      //   });
+      //     //Close modal stream
+      //   $("#streamModal").on("hidden.bs.modal", function(){
+      //     closeVideoStream(stream);
+      //     Swal.fire({
+      //       type: "info",
+      //       title: `Đã kết thúc cuộc gọi với &nbsp; <span style="color: #2ECC71;">${response.listenerName}</span> &nbsp; ></i>`,
+      //       backdrop: "rgba(85, 85, 85, 0.4)",
+      //       width: "52rem", //const 32rem
+      //       allowOutsideClick: false,
+      //       timer: 30000, //30 second
+      //       confirmButtonText: "Xác nhận"
+      //   });
+      //  })
       }, function(err){
         console.log("Failed to get local stream", err);
         if(err.toString() === "NotAllowedError: Permission deniend"){
