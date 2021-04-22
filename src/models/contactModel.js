@@ -190,6 +190,20 @@ ContactSchema.statics = {
     },{
       "updatedAt": Date.now()
     }).exec();
-  }
+  },
+  //Get contct friends by UserId
+  getFriends(userId, limit){ //hien thi danh ba
+    return this.find({
+      $and:[
+        // Minh gui cho ngta hoac ngta gio cho minh deu duoc
+        {$or:[
+          {"userId": userId},
+          {"contactId": userId}
+        ]},
+        {"status": true}
+      ]
+    }).sort({"updatedAt": 1}).limit(20).exec()
+  },
 }
+
 module.exports = mongoose.model("contact", ContactSchema);

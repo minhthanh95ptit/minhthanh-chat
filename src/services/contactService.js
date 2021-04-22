@@ -116,6 +116,7 @@ let getContacts = (currentUserId) =>{
      let contacts = await ContactModel.getContacts(currentUserId, LIMIT_NUMBER_TAKEN);
      let users = contacts.map(async (contact) =>{
        /* Luu y : ._id la objectID trong mongoDB*/
+       //CurrentUserId la object truyen tu client len
        // 1 cai la string, 1 cai la object. Nen dung 2 dau ==
       //  console.log(currentUserId, typeof currentUserId);
       //  console.log("---------------------------")
@@ -261,6 +262,34 @@ let readMoreContactsReceived = (currentUserId, skipNUmberContacts) =>{
   })
 }
 
+let searchFriends = (currentUserId, keyword) =>{
+  return new Promise( async (resolve, reject) =>{
+    let friendsId = [];
+    let friends = await ContactModel.getFriends(currentUserId);
+    
+    friends.forEach((item) =>{
+      friendsId.push(item.userId);
+      friendsId.push(item.contactId);
+    });
+
+    // console.log(friendsId);
+
+    friendsId = _.uniqBy(friendsId);
+    friendsId = friendsId.filter(userId =>{
+      return userId != currentUserId
+    })
+
+    // console.log(friendsId);
+
+    let users = await UserModel.findAllToAddGroup(friendsId, keyword);
+
+    // console.log(users);
+
+    resolve(users)
+  })
+}
+
+
 module.exports = {
   findUsersContact: findUsersContact,
   addNew: addNew,
@@ -276,5 +305,6 @@ module.exports = {
   countAllContactReceived: countAllContactReceived,
   readMoreContacts: readMoreContacts,
   readMoreContactsSent: readMoreContactsSent,
-  readMoreContactsReceived: readMoreContactsReceived
+  readMoreContactsReceived: readMoreContactsReceived,
+  searchFriends: searchFriends
 }
